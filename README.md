@@ -44,15 +44,15 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 Specify what it takes to deploy your app.
 
-### Tutorial
-#### Video 1: Playing Sounds
+## Tutorial
+### Video 1: Playing Sounds
 
 Spin a new ember app
 ```zsh
 ember new ember-beats
 ```
 
-###### Installing and configuring howler.js
+#### Installing and configuring howler.js
 Howler.js doesn't have an ember add-on, but there is a bower package that can be install:
 ```zsh
 bower install howler
@@ -69,7 +69,7 @@ To avoid ember hint warnings, we have to add it to **.jshintrc**:
 ]
 ```
 
-###### Creating a howler service
+#### Creating a howler service
 Create a service
 ```zsh
 mkdir app/services
@@ -114,7 +114,7 @@ export default Ember.Service.extend({
 });
 ```
 
-Create an application controller and inject the service:
+#### Create an application controller and inject the service:
 ```zsh
 touch app/controllers/application.js
 touch app/templates/application.js
@@ -132,6 +132,28 @@ export default Ember.Controller.extend({
     }
   }
 });
+```
+
+#### Get audio-service to expose the sounds it has
+Making a new button for each and every sound would be tedious and repetitive. When something is tedious and repetitve, there is probably a better way to do it.
+
+Make a computed property in the **audio-service.js** to expose the sounds available:
+```javascript
+//app/services/audio-service.js
+
+...
+sounds: Ember.computed('howl', function() {
+  let howl = this.get('howl');
+  return Object.keys(howl._sprite);
+})
+...
+```
+
+In the application template, iterate through the sounds:
+```hbs
+{{#each audioService.sounds do |sound|}}
+  <button onmouseover={{action 'play' sound}}>Play {{sound}}</button>
+{{/each}}
 ```
 
 ## Further Reading / Useful Links

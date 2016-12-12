@@ -27,6 +27,13 @@ export default Ember.Service.extend({
     this.set('howl', howl);
   },
 
+  sounds: Ember.computed('howl', function () {
+    let howl = this.get('howl');
+
+    // @todo: Will refactor this part in future.
+    return Object.keys(howl._sprite);
+  }),
+
   play(sound) {
     let howl = this.get('howl');
     howl.play(sound);
