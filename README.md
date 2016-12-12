@@ -44,6 +44,30 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 Specify what it takes to deploy your app.
 
+### Tutorial
+#### Video 1: Playing Sounds
+
+Spin a new ember app
+```zsh
+ember new ember-beats
+```
+
+Howler.js doesn't have an ember add-on, but there is a bower package that can be install:
+```zsh
+bower install howler
+```
+As with all bower packages, we will need to import it in **ember-cli-build.js** so the next time we boot the app, **howler.js** will be available as a global:
+```javascript
+app.import('bower_components/howler.js/dist/howler.core.min.js');
+```
+
+To avoid ember hint warnings, we have to add it to **.jshintrc**:
+```
+"predef": [
+  "Howler"
+]
+```
+
 ## Further Reading / Useful Links
 
 * [ember.js](http://emberjs.com/)
