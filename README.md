@@ -1,5 +1,5 @@
 # Ember-beats
-Following along with [Gavin Joyce's Drum Machines tutorial](https://www.youtube.com/watch?v=dDPAUcxQ3lA)
+Following along with [Gavin Joyce's Drum Machines tutorial](https://github.com/GavinJoyce/ember-beats)
 
 This README outlines the details of collaborating on this Ember application.
 A short introduction of this app could easily go here.
@@ -52,6 +52,7 @@ Spin a new ember app
 ember new ember-beats
 ```
 
+###### Installing and configuring howler.js
 Howler.js doesn't have an ember add-on, but there is a bower package that can be install:
 ```zsh
 bower install howler
@@ -66,6 +67,71 @@ To avoid ember hint warnings, we have to add it to **.jshintrc**:
 "predef": [
   "Howler"
 ]
+```
+
+###### Creating a howler service
+Create a service
+```zsh
+mkdir app/services
+touch app/services/audio-service.js
+```
+
+In **app/services/audi-service.js**, paste the following:
+```javascript
+import Ember from 'ember';
+
+export default Ember.Service.extend({
+  init() {
+    let howl = new Howl({
+      src: ['sprites.mp3'],
+      sprite: {
+        cowbell: [0, 300],
+        conga_hi: [400, 300],
+        cymbal: [807, 3640],
+        conga_mid: [4455, 202],
+        conga_low: [4863, 343],
+        hihat_open: [5268, 706],
+        tom_hi: [6277, 206],
+        maracas: [6684, 53],
+        tom_mid: [7092, 263],
+        hihat_closed: [7496, 90],
+        tom_low: [7903, 370],
+        clave: [8307, 44],
+        clap: [8712, 208],
+        snare: [9116, 137],
+        rim: [9521, 36],
+        kick: [9929, 390]
+      }
+    });
+
+    this.set('howl', howl);
+  },
+
+  play(sound) {
+    let howl = this.get('howl');
+    howl.play(sound);
+  }
+});
+```
+
+Create an application controller and inject the service:
+```zsh
+touch app/controllers/application.js
+touch app/templates/application.js
+```
+//app/controllers/application.js
+```javascript
+import Ember from 'ember';
+
+export default Ember.Controller.extend({
+  audioService: Ember.inject.service(),
+
+  actions: {
+    play(sound) {
+      this.get('audioService').play(sound);
+    }
+  }
+});
 ```
 
 ## Further Reading / Useful Links
