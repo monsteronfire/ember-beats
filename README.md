@@ -181,6 +181,21 @@ test('is can deserialise a song', (assert) => {
 ```
  To run the tests, go to [localhost:4200/tests](http://localhost:4200/tests) in your browser. A lot of things will fail at this point because there is no `song model`.
 
+So we have to create the `song model`:
+
+```zsh
+touch app/models/song.js
+```
+
+```javascript
+//app/models/song.js
+
+import Ember from 'ember';
+
+export default Ember.Object.extend({
+
+});
+```
 
 ## Further Reading / Useful Links
 
