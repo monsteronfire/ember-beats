@@ -156,6 +156,13 @@ In the application template, iterate through the sounds:
 {{/each}}
 ```
 
+### Video 2: Test driving the object model
+#### Writing tests for song-model.js
+```zsh
+mkdir tests/unit/models
+touch tests/unit/models/song-test.js
+```
+
 ## Further Reading / Useful Links
 
 * [ember.js](http://emberjs.com/)
