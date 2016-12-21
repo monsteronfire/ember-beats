@@ -342,14 +342,17 @@ test('is can deserialise a song', (assert) => {
 });
 ```
 
-Then update the deserilize method to make the test pass:
+Then update the deserilize method to make the test pass. A song will have an array of channels.
 ```javascript
 import Ember from 'ember';
 import Channel from './channel';
 
 let Song = Ember.Object.extend({
+  // A Song has an array of channels. Initial value set to null for now
   channels: null,
 
+  // Initialize channels to be an Ember Array
+  // And make sure this init inherits from the super init function
   init() {
     this._super(...arguments);
     this.set('channels', Ember.A());
@@ -388,7 +391,70 @@ Run
 ```zsh
 touch app/models/step.js
 ```
+And add initial code:
+```javascript
+//app/models/step.js
 
+import Ember from 'ember';
+
+export default Ember.Object.extend({});
+```
+
+Update tests to test step data:
+```javascript
+//tests/unit/model/song-test.js
+
+...
+test('is can deserialise a song', (assert) => {
+  let song = Song.fromEncodedBase64(SEXUAL_HEALING_ENCODED_BASE_64_DATA);
+  assert.equal(song.get('name'), 'Sexual Healing (Marvin Gaye)');
+  assert.equal(song.get('tempo'), 95);
+  assert.equal(song.get('channels.length'), 9);
+
+  let channel = song.get('channels.firstObject');
+  assert.equal(channel.get('sound'), 'kick');
+  assert.equal(channel.get('volume'), 1);
+  assert.equal(channel.get('steps.length'), 32);
+
+  let step = channel.get('steps.firstObject');
+  assert.equal(step.get('velocity'), 1);
+});
+```
+
+Update the steps in the deserialise method:
+```javascript
+//app/model/song.js
+...
+deserialize (data) {
+  //debugger;
+  let song = Song.create({
+    name: data.name,
+    tempo: data.tempo,
+  });
+
+  data.channels.forEach((channelData) => {
+    let channel = Channel.create({
+      sound: channelData.sound,
+      volume: channelData.volume,
+    });
+
+    song.get('channels').pushObject(channel);
+
+    channelData.steps.forEach((stepData) => {
+      //debugger;
+      let step = Step.create({
+        velocity: stepData.velocity
+      });
+
+      channel.get('steps').pushObject(step);
+    });
+  });
+  return song;
+}
+...
+```
+
+#### Refactor
 
 left off: https://youtu.be/4vVWwYnICuY?t=10m26s
 

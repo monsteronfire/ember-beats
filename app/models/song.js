@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import Channel from './channel';
+import Step from './step';
 
 let Song = Ember.Object.extend({
   channels: null,
@@ -28,7 +29,17 @@ let Song = Ember.Object.extend({
         sound: channelData.sound,
         volume: channelData.volume,
       });
+
       song.get('channels').pushObject(channel);
+
+      channelData.steps.forEach((stepData) => {
+        //debugger;
+        let step = Step.create({
+          velocity: stepData.velocity
+        });
+
+        channel.get('steps').pushObject(step);
+      });
     });
     return song;
   }
