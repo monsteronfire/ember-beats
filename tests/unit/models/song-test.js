@@ -9,4 +9,11 @@ test('is can deserialise a song', (assert) => {
   let song = Song.fromEncodedBase64(SEXUAL_HEALING_ENCODED_BASE_64_DATA);
 
   assert.equal(song.get('name'), 'Sexual Healing (Marvin Gaye)');
+  assert.equal(song.get('tempo'), 95);
+  assert.equal(song.get('channels.length'), 9);
+
+  let channel = song.get('channels.firstObject');
+  assert.equal(channel.get('sound'), 'kick');
+  assert.equal(channel.get('volume'), 1);
+  assert.equal(channel.get('steps.length'), 32);
 });
