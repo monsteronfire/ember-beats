@@ -7,6 +7,10 @@ let Song = Ember.Object.extend({
   init() {
     this._super(...arguments);
     this.set('channels', Ember.A());
+  },
+
+  serialize() {
+    return "";
   }
 }).reopenClass({
   fromEncodedBase64(encodedBase64Data) {

@@ -19,3 +19,8 @@ test('is can deserialise a song', (assert) => {
   let step = channel.get('steps.firstObject');
   assert.equal(step.get('velocity'), 1);
 });
+
+test('is can serialise a song', (assert) => {
+  let song = Song.fromEncodedBase64(SEXUAL_HEALING_ENCODED_BASE_64_DATA);
+  assert.equal(song.toEncodedBase64(), SEXUAL_HEALING_ENCODED_BASE_64_DATA);
+});
