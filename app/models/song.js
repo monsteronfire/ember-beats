@@ -10,7 +10,19 @@ let Song = Ember.Object.extend({
   },
 
   serialize() {
-    return "";
+    return {
+      name: this.get('name'),
+      tempo: this.get('tempo'),
+      channels: this.get('channels').invoke('serialize')
+    };
+  },
+
+  toEncodedBase64() {
+    let data = this.serialize();
+    let json = JSON.stringify(data);
+    let base64Data = LZString.compressToBase64(json);
+
+    return encodeURIComponent(base64Data);
   }
 }).reopenClass({
   fromEncodedBase64(encodedBase64Data) {
@@ -21,7 +33,6 @@ let Song = Ember.Object.extend({
     return this.deserialize(data);
   },
   deserialize (data) {
-    //debugger;
     let song = Song.create({
       name: data.name,
       tempo: data.tempo,
@@ -33,6 +44,7 @@ let Song = Ember.Object.extend({
       let channel = Channel.deserialize(channelData);
       channels.pushObject(channel);
     });
+
     return song;
   }
 });

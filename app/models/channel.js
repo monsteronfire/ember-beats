@@ -7,6 +7,14 @@ let Channel = Ember.Object.extend({
   init() {
     this._super(...arguments);
     this.set('steps', Ember.A());
+  },
+
+  serialize() {
+    return {
+      sound: this.get('sound'),
+      volume: this.get('volume'),
+      steps: this.get('steps').invoke('serialize')
+    };
   }
 }).reopenClass({
   deserialize(data) {

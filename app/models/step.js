@@ -1,13 +1,16 @@
 import Ember from 'ember';
 
 let Step = Ember.Object.extend({
-
+  serialize() {
+    return {
+      velocity: this.get('velocity')
+    };
+  }
 }).reopenClass({
   deserialize(data) {
-    let step = Step.create({
+    return Step.create({
       velocity: data.velocity
     });
-   return step;
   }
 });
 
