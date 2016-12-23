@@ -455,8 +455,110 @@ deserialize (data) {
 ```
 
 #### Refactor
+Move the deserialize code for each model into their own respective files:
 
-left off: https://youtu.be/4vVWwYnICuY?t=10m26s
+```javascript
+//app/model/song.js
+
+import Ember from 'ember';
+import Channel from './channel';
+
+let Song = Ember.Object.extend({
+  channels: null,
+
+  init() {
+    this._super(...arguments);
+    this.set('channels', Ember.A());
+  },
+
+  serialize() {
+    return "";
+  }
+}).reopenClass({
+  fromEncodedBase64(encodedBase64Data) {
+    let base64Data = decodeURIComponent(encodedBase64Data);
+    let json = LZString.decompressFromBase64(base64Data);
+    let data = JSON.parse(json);
+
+    return this.deserialize(data);
+  },
+  deserialize (data) {
+    //debugger;
+    let song = Song.create({
+      name: data.name,
+      tempo: data.tempo,
+    });
+
+    let channels = song.get('channels');
+
+    data.channels.forEach((channelData) => {
+      let channel = Channel.deserialize(channelData);
+      channels.pushObject(channel);
+    });
+    return song;
+  }
+});
+
+export default Song;
+```
+
+Step model:
+```javascript
+//app/models/step.js
+
+import Ember from 'ember';
+
+let Step = Ember.Object.extend({
+
+}).reopenClass({
+  deserialize(data) {
+    let step = Step.create({
+      velocity: data.velocity
+    });
+   return step;
+  }
+});
+
+export default Step;
+```
+
+Channel model:
+```javascript
+//app/models/channel.js
+import Ember from 'ember';
+import Step from './step';
+
+let Channel = Ember.Object.extend({
+  steps: null,
+
+  init() {
+    this._super(...arguments);
+    this.set('steps', Ember.A());
+  }
+}).reopenClass({
+  deserialize(data) {
+    let channel = Channel.create({
+      sound: data.sound,
+      volume: data.volume,
+    });
+
+    let steps = channel.get('steps');
+
+    data.steps.forEach((stepData) => {
+      let step = Step.deserialize(stepData);
+      steps.pushObject(step);
+    });
+
+    return channel;
+  }
+});
+
+export default Channel;
+```
+
+#### Writing serialize spec
+
+left off: https://youtu.be/4vVWwYnICuY?t=29m54s
 
 ## Further Reading / Useful Links
 
