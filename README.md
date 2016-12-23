@@ -558,7 +558,7 @@ export default Channel;
 
 #### Writing serialize spec
 
-left off: https://youtu.be/4vVWwYnICuY?t=29m54s
+left off: https://youtu.be/4vVWwYnICuY?t=35m42s
 
 ## Further Reading / Useful Links
 
