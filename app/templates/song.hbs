@@ -1,1 +1,12 @@
 <h1>Song here: {{model.name}}</h1>
+
+<table>
+{{#each model.channels as |channel|}}
+  <tr>
+    <td>{{channel.sound}}</td>
+    {{#each channel.steps as |step|}}
+      <td>{{step.velocity}}</td>
+    {{/each}}
+  </tr>
+{{/each}}
+</table>
