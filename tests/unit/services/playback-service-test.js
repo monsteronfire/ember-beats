@@ -9,6 +9,8 @@ moduleFor('service:playback-service', 'Unit | Service | playback service', {
 test('it it calculates the bar, beats and sixteenths', function(assert) {
   let service = this.subject();
 
+  assert.equal(service.get('display'), '1:1:1');
+
   assert.equal(service.get('bars'), 1);
   assert.equal(service.get('beats'), 1);
   assert.equal(service.get('sixteenths'), 1);
