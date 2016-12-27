@@ -6,7 +6,16 @@ moduleFor('service:playback-service', 'Unit | Service | playback service', {
 });
 
 // Replace this with your real tests.
-test('it exists', function(assert) {
+test('it it calculates the bar, beats and sixteenths', function(assert) {
   let service = this.subject();
+
+  //assert.equal(service.get('bars'), 1);
+  //assert.equal(service.get('beats'), 1);
+  assert.equal(service.get('sixteenths'), 1);
+  service.set('tickCount', 1);
+  assert.equal(service.get('sixteenths'), 2);
+  service.set('tickCount', 4);
+  assert.equal(service.get('sixteenths'), 1);
+
   assert.ok(service);
 });
