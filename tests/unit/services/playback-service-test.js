@@ -11,23 +11,15 @@ test('it it calculates the bar, beats and sixteenths', function(assert) {
 
   assert.equal(service.get('display'), '1:1:1');
 
-  assert.equal(service.get('bars'), 1);
-  assert.equal(service.get('beats'), 1);
-  assert.equal(service.get('sixteenths'), 1);
-
   service.set('tickCount', 1);
-  assert.equal(service.get('bars'), 1);
-  assert.equal(service.get('beats'), 1);
-  assert.equal(service.get('sixteenths'), 2);
+  assert.equal(service.get('display'), '1:1:2');
 
   service.set('tickCount', 4);
-  assert.equal(service.get('bars'), 1);
-  assert.equal(service.get('beats'), 2);
-  assert.equal(service.get('sixteenths'), 1);
+  assert.equal(service.get('display'), '1:2:1');
 
   service.set('tickCount', 15);
-  assert.equal(service.get('bars'), 1);
+  assert.equal(service.get('display'), '1:4:4');
 
   service.set('tickCount', 16);
-  assert.equal(service.get('bars'), 2);
+  assert.equal(service.get('display'), '2:1:1');
 });
