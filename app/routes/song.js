@@ -2,7 +2,7 @@ import Ember from 'ember';
 import Song from 'ember-beats/models/song';
 
 export default Ember.Route.extend({
-  playbackService: Ember.inject.service,
+  playbackService: Ember.inject.service(),
   queryParams: {
     data: {
       refreshModel: true

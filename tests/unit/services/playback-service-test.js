@@ -27,11 +27,19 @@ test('it it calculates the bar, beats and sixteenths', function(assert) {
 test('tickInteral', function(assert) {
   let service = this.subject();
 
-  serivce.set('song', Song.create({ tempo: 60 }));
+  service.set('song', Song.create({ tempo: 60 }));
 
   assert.equal(service.get('tickInterval'), 250);
 
-  serivce.set('song', Song.create({ tempo: 120 }));
+  service.set('song', Song.create({ tempo: 120 }));
 
   assert.equal(service.get('tickInterval'), 125);
+});
+
+test('play', function(assert) {
+  let service = this.subject();
+
+  service.play();
+
+  assert.equal(service.get('isPlaying'), true);
 });
