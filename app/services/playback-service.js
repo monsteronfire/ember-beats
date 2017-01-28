@@ -11,7 +11,10 @@ export default Ember.Service.extend({
   },
 
   play() {
-    this.set('isPlaying', true);
+    this.setProperties({
+      isPlaying: true,
+      tickCount: 0
+    });
   },
 
   tickInterval: Ember.computed('song.tempo', function() {

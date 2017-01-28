@@ -1,4 +1,5 @@
 import { moduleFor, test } from 'ember-qunit';
+import Song from 'ember-beats/models/song';
 
 moduleFor('service:playback-service', 'Unit | Service | playback service', {
   // Specify the other units that are required for this test.
@@ -39,7 +40,11 @@ test('tickInteral', function(assert) {
 test('play', function(assert) {
   let service = this.subject();
 
+  service.set('isPlaying', false);
+  service.set('tickCount', 0);
+
   service.play();
 
-  assert.equal(service.get('isPlaying'), true);
+  assert.equal(service.get('isPlaying'), 0);
+  assert.equal(service.get('tickCount'), true);
 });
