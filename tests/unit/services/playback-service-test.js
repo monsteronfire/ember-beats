@@ -48,3 +48,13 @@ test('play', function(assert) {
   assert.equal(service.get('isPlaying'), 0);
   assert.equal(service.get('tickCount'), true);
 });
+
+test('stop', function(assert) {
+  let service = this.subject();
+  service.set('isPlaying', true);
+  service.set('tickCount', 20);
+  service.stop();
+
+  assert.equal(service.get('isPlaying'), 1);
+  assert.equal(service.get('tickCount'), 20);
+});
