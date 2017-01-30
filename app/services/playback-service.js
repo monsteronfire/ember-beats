@@ -15,6 +15,11 @@ export default Ember.Service.extend({
       isPlaying: true,
       tickCount: 0
     });
+    this.tick();
+  },
+
+  tick() {
+    //
   },
 
   stop() {
