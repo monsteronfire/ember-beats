@@ -17,6 +17,12 @@ export default Ember.Service.extend({
     });
   },
 
+  stop() {
+    this.setProperties({
+      isPlaying: false
+    });
+  },
+
   tickInterval: Ember.computed('song.tempo', function() {
     let beatsPerSecond = this.get('song.tempo') / 60;
     let sixteenthsPerSecond = beatsPerSecond * 4;

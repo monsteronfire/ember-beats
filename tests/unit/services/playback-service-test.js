@@ -55,6 +55,6 @@ test('stop', function(assert) {
   service.set('tickCount', 20);
   service.stop();
 
-  assert.equal(service.get('isPlaying'), 1);
+  assert.equal(service.get('isPlaying'), false);
   assert.equal(service.get('tickCount'), 20);
 });
