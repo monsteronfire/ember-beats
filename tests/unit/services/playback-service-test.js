@@ -1,4 +1,5 @@
-import { moduleFor, test } from 'ember-qunit';
+import { moduleFor } from 'ember-qunit';
+import test from 'my-app/tests/ember-sinon-qunit/test';
 import Song from 'ember-beats/models/song';
 
 moduleFor('service:playback-service', 'Unit | Service | playback service', {
