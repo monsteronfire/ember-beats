@@ -1,5 +1,5 @@
 import { moduleFor } from 'ember-qunit';
-import test from 'my-app/tests/ember-sinon-qunit/test';
+import test from 'ember-beats/tests/ember-sinon-qunit/test';
 import Song from 'ember-beats/models/song';
 
 moduleFor('service:playback-service', 'Unit | Service | playback service', {
@@ -41,6 +41,8 @@ test('tickInteral', function(assert) {
 test('play', function(assert) {
   let service = this.subject();
 
+  let tickStub = this.stub(service, 'tick');
+
   service.set('isPlaying', false);
   service.set('tickCount', 0);
 
@@ -48,6 +50,7 @@ test('play', function(assert) {
 
   assert.equal(service.get('isPlaying'), 0);
   assert.equal(service.get('tickCount'), true);
+  assert.ok(tickStub.calledOnce, 'tick was called once');
 });
 
 test('stop', function(assert) {
