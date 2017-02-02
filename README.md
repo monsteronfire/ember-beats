@@ -1,5 +1,6 @@
 # Ember-beats
 Following along with [Gavin Joyce's Drum Machines tutorial](https://github.com/GavinJoyce/ember-beats)
+[YouTube video 4](https://www.youtube.com/watch?v=NG4yUhe-7cU)
 
 This README outlines the details of collaborating on this Ember application.
 A short introduction of this app could easily go here.
