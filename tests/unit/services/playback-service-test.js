@@ -62,3 +62,17 @@ test('stop', function(assert) {
   assert.equal(service.get('isPlaying'), false);
   assert.equal(service.get('tickCount'), 20);
 });
+
+test('tick when stopped', function(assert) {
+  let service = this.subject();
+  let runLaterStub = this.stub(Ember.run, 'later');
+  service.setProperties({
+    isPlaying: false,
+    tickCount: 4
+  });
+
+  service.tick();
+
+  service.equal(service.get('tickCount'), 4);
+  service.ok(runLaterStub.notCalled, 'no run.later is scheduled');
+});
